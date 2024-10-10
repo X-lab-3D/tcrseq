@@ -55,14 +55,14 @@ def get_gene_sequences(gene_name: str, gapped: Optional[bool] = True) -> str:
     for record in SeqIO.parse(path, "fasta"):
         record_gene_name = record.id.split('|')[1]
         if record_gene_name == gene_name:
-            matching[record_gene_name] = record.seq
+            matching[record_gene_name] = str(record.seq)
             break
 
         elif record_gene_name.startswith(f"{gene_name}-"):
-            matching[record_gene_name] = record.seq
+            matching[record_gene_name] = str(record.seq)
 
         elif record_gene_name.startswith(f"{gene_name}*"):
-            matching[record_gene_name] = record.seq
+            matching[record_gene_name] = str(record.seq)
 
     return matching
 
@@ -143,7 +143,8 @@ def get_full_tcr_sequence(
         except MisMatch:
             continue
     else:
-        raise MisMatch(f"cannot match any V-sequence with CDR3 {cdr3_seq}: {v_sequences}")
+        choice_s = "\n".join([f"{n}: {s}" for n, s in v_sequences.items()])
+        raise MisMatch(f"cannot match any V-sequence with CDR3 {cdr3_sequence}:\n{choice_s}")
 
     for j_name, j_sequence in j_sequences.items():
         try:
@@ -152,7 +153,8 @@ def get_full_tcr_sequence(
         except MisMatch:
             continue
     else:
-        raise MisMatch(f"cannot match any J-sequence with CDR3 {cdr3_seq}: {v_sequences}")
+        choice_s = "\n".join([f"{n}: {s}" for n, s in j_sequences.items()])
+        raise MisMatch(f"cannot match any J-sequence with CDR3 {cdr3_sequence}:\n{choice_s}")
 
     return full_sequence
 
