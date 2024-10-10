@@ -55,6 +55,7 @@ def get_gene_sequences(gene_name: str, gapped: Optional[bool] = True) -> str:
     for record in SeqIO.parse(path, "fasta"):
         record_gene_name = record.id.split('|')[1]
         if record_gene_name == gene_name:
+            # exact match
             matching[record_gene_name] = str(record.seq)
             break
 
@@ -126,7 +127,12 @@ def get_full_tcr_sequence(
     """
 
     v_sequences = get_gene_sequences(tcrv_gene_name, gapped)
+    if len(v_sequences) == 0:
+        raise ValueError(f"no sequences found for {tcrv_gene_name}")
+
     j_sequences = get_gene_sequences(tcrj_gene_name, gapped)
+    if len(j_sequences) == 0:
+        raise ValueError(f"no sequences found for {tcrj_gene_name}")
 
     for v_name, v_sequence in v_sequences.items():
         try:
