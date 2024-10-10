@@ -1,4 +1,4 @@
-# TCR Engin
+# TCRseq
 A tool for building the TCR sequence, given V-gene name, J-gene name and CDR3 sequence.
 
 The data directory contains the fasta files, holding amino acid sequences of the V and J genes for alpha(A) and beta(B) TCR subunits.
@@ -21,5 +21,5 @@ This python file can also be used as a module:
 ```
 from tcrseq import get_full_tcr_sequence
 
-full_sequence = get_full_sequence("TRBV1", "TRBJ1", "CTSSQAEFAFANTEA")
+full_sequence = get_full_tcr_sequence("TRBV1", "TRBJ1", "CTSSQAEFAFANTEA")
 ```
