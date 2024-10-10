@@ -91,7 +91,7 @@ def combine_at_cterm(cdr3_seq: str, j_seq: str) -> str:
 
         return cdr3_seq + j_seq[i + l:]
 
-    raise RuntimeError(f"cannot match CDR3 {cdr3_seq} with {j_seq}")
+    raise MisMatch(f"cannot match CDR3 {cdr3_seq} with {j_seq}")
 
 
 
