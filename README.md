@@ -21,5 +21,5 @@ This python file can also be used as a module:
 ```
 from engin import get_full_tcr_sequence
 
-...
+full_sequence = get_full_sequence("TRBV1", "TRBJ1", "CTSSQAEFAFANTEA")
 ```
