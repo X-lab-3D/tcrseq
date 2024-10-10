@@ -76,14 +76,11 @@ def combine_at_cterm(cdr3_seq: str, j_seq: str) -> str:
     """
 
     # We must match as much of CDR3 as possible, so try the longest part first.
-    for l in [6,5,4,3,2]:
+    for l in [4,3,2]:
 
         cterm_seq = cdr3_seq[-l:]
         i = j_seq.find(cterm_seq)
         if i == -1:
-            continue
-
-        if i > 3:
             continue
 
         _log.debug(f"combine at cterm: {cdr3_seq}{'.' * (len(j_seq) - i - l)}")
@@ -92,7 +89,6 @@ def combine_at_cterm(cdr3_seq: str, j_seq: str) -> str:
         return cdr3_seq + j_seq[i + l:]
 
     raise MisMatch(f"cannot match CDR3 {cdr3_seq} with {j_seq}")
-
 
 
 def combine_at_nterm(v_seq: str, cdr3_seq: str) -> str:
@@ -104,15 +100,11 @@ def combine_at_nterm(v_seq: str, cdr3_seq: str) -> str:
     """
 
     # We must match as much of CDR3 as possible, so try the longest part first.
-    for l in [6,5,4,3,2]:
+    for l in [4,3,2]:
 
         nterm = cdr3_seq[:l]
         i = v_seq.rfind(nterm)
-
         if i == -1:
-            continue
-
-        if i < (len(v_seq) - l  - 3):
             continue
 
         _log.debug(f"combine at nterm: {'.' * i}{cdr3_seq}")
