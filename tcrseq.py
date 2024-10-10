@@ -77,17 +77,22 @@ def combine_at_cterm(cdr3_seq: str, j_seq: str) -> str:
     """
 
     # We must match as much of CDR3 as possible, so try the longest part first.
-    for l in [4,3,2]:
+    # Try multiple offsets in the CDR3 sequence, starting at the most C-terminal part of CDR3
+    for length in [4,3,2]:
+        for offset in [0,1]:
 
-        cterm_seq = cdr3_seq[-l:]
-        i = j_seq.find(cterm_seq)
-        if i == -1:
-            continue
+            cterm_seq = cdr3_seq[-(length + offset): len(cdr3_seq) - offset]
+            i = j_seq.find(cterm_seq)
+            if i == -1:
+                continue
 
-        _log.debug(f"combine at cterm: {cdr3_seq}{'.' * (len(j_seq) - i - l)}")
-        _log.debug(f"combine at cterm: {'.' * (len(cdr3_seq) - i - l)}{j_seq}")
+            # amount to take off J-sequence
+            ndel = i + length + offset
 
-        return cdr3_seq + j_seq[i + l:]
+            _log.debug(f"combine at cterm: {cdr3_seq}{'.' * (len(j_seq) - ndel)}")
+            _log.debug(f"combine at cterm: {'.' * (len(cdr3_seq) - ndel)}{j_seq}")
+
+            return cdr3_seq + j_seq[ndel:]
 
     raise MisMatch(f"cannot match CDR3 {cdr3_seq} with {j_seq}")
 
@@ -101,17 +106,22 @@ def combine_at_nterm(v_seq: str, cdr3_seq: str) -> str:
     """
 
     # We must match as much of CDR3 as possible, so try the longest part first.
-    for l in [4,3,2]:
+    # Try multiple offsets in the CDR3 sequence, starting at the most N-terminal part of CDR3
+    for length in [4,3,2]:
+        for offset in [0,1]:
 
-        nterm = cdr3_seq[:l]
-        i = v_seq.rfind(nterm)
-        if i == -1:
-            continue
+            nterm = cdr3_seq[offset:(length + offset)]
+            i = v_seq.rfind(nterm)
+            if i == -1:
+                continue
 
-        _log.debug(f"combine at nterm: {'.' * i}{cdr3_seq}")
-        _log.debug(f"combine at nterm: {v_seq}{'.' * (len(cdr3_seq) - l)}")
+            # amount to take off V-sequence
+            ndel = len(v_seq) - i + offset
 
-        return v_seq[:i] + cdr3_seq
+            _log.debug(f"combine at nterm: {'.' * (len(v_seq) - ndel)}{cdr3_seq}")
+            _log.debug(f"combine at nterm: {v_seq}{'.' * (len(cdr3_seq) - ndel)}")
+
+            return v_seq[:(i - offset)] + cdr3_seq
 
     raise MisMatch(f"cannot match {v_seq} with CDR3 {cdr3_seq}")
 
