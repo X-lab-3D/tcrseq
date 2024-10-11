@@ -3,11 +3,14 @@ from tcrseq import get_full_tcr_sequence
 
 def test_full_tcr_sequence():
 
-    full_sequence = get_full_tcr_sequence("TRBV1", "TRBJ1", "CTSSQAEFAFANTEA")
+    full_sequence = get_full_tcr_sequence("TRBV1", "CTSSQAEFAFANTEA", "TRBJ1")
     assert full_sequence.replace(".", "") == "DTGITQTPKYLVTAMGSKRTMKREHLGHDSMYWYRQKAKKSLEFMFYYNCKEFIENKTVPNHFTPECPDSSRLYLHVVALQQEDSAAYLCTSSQAEFAFANTEAFFGQGTRLTVV"
 
-    full_sequence = get_full_tcr_sequence("TRBV28*01", "TRBJ2-1*01", "CASSLTGTGFKQFF")
+    full_sequence = get_full_tcr_sequence("TRBV28*01", "CASSLTGTGFKQFF", "TRBJ2-1*01")
     assert full_sequence.replace(".", "") == "DVKVTQSSRYLVKRTGEKVFLECVQDMDHENMFWYRQDPGLGLRLIYFSYDVKMKEKGDIPEGYSVSREKKERFSLILESASTNQTSMYLCASSLTGTGFKQFFGPGTRLTVL"
 
-    full_sequence = get_full_tcr_sequence("TRBV26*01", "TRBJ2-3*01", "CASSPGDSAETLYF")
+    full_sequence = get_full_tcr_sequence("TRBV26*01", "CASSPGDSAETLYF", "TRBJ2-3*01")
     assert full_sequence.replace(".", "") == "DAVVTQFPRHRIIGTGKEFILQCSQNMNHVTMYWYRQDPGLGLKLVYYSPGTGSTEKGDISEGYHVS*NTIASFPLTLKSASTNQTSVYLCASSPGDSAETLYFGPGTRLTVL"
+
+    full_sequence = get_full_tcr_sequence("TRAV1-1*01", "CAVEGLGNVLHC", None)
+    assert full_sequence.replace(".", "") == "GQSLEQPSEVTAVEGAIVQINCTYQTSGFYGLSWYQQHDGGAPTFLSYNALDGLEETGRFSSFLSRSDSYGYLLLQELQMKDSASYFCAVEGLGNVLHC"

@@ -11,7 +11,7 @@ These have been downloaded from IMGT (https://www.imgt.org/vquest/refseqh.html) 
 From this repository, run:
 
 ```
-python3 tcrseq.py VGENE_NAME JGENE_NAME CDR3_SEQUENCE
+python3 tcrseq.py VGENE_NAME CDR3_SEQUENCE JGENE_NAME
 ```
 
 This returns the full TCR sequence.
@@ -21,5 +21,5 @@ This python file can also be used as a module:
 ```
 from tcrseq import get_full_tcr_sequence
 
-full_sequence = get_full_tcr_sequence("TRBV1", "TRBJ1", "CTSSQAEFAFANTEA")
+full_sequence = get_full_tcr_sequence("TRBV1", "CTSSQAEFAFANTEA", "TRBJ1")
 ```
