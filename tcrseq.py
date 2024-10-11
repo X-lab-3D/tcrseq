@@ -9,9 +9,9 @@ from typing import Optional, Any
 from Bio import SeqIO
 
 args_parser = ArgumentParser(description="combine V-gene, J-gene and CDR3 into one sequence")
-args_parser.add_argument("tcrv_gene_name", help="full name of the TCR V-gene (alpha/beta)")
+args_parser.add_argument("tcrv_gene_name", help="full name of the TCR V-gene (alpha/beta), insert empty string to omit")
 args_parser.add_argument("cdr3_sequence", help="sequence of the TCR CDR3 loop (alpha/beta)")
-args_parser.add_argument("tcrj_gene_name", help="full name of the TCR J-gene (alpha/beta)")
+args_parser.add_argument("tcrj_gene_name", help="full name of the TCR J-gene (alpha/beta), insert empty string to omit")
 args_parser.add_argument("--debug", "-d", action='store_const', const=True, default=False, help="prints debug information")
 args_parser.add_argument("--no-gaps", "-n", action='store_const', const=True, default=False, help="disable IMGT gaps")
 
